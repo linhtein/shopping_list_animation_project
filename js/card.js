@@ -31,13 +31,26 @@ window.dec = function(event,price){
     }
     costTotal();
 }
+window.deleteCard = function(event,id){
+    let currentCard = event.target.closest('.item-in-card');
+    let cardCost = parseFloat(currentCard.querySelector('.card-cost').innerText);
+    total.innerText = (parseFloat(total.innerText)-cardCost).toFixed(2);
+    currentCard.remove();
+
+
+    // let itemId = currentItemCard.getAttribute('item-id');  //string
+    // let itemDetail = items.find(item=>item.id == parseInt(itemId));
+
+    // console.log(event.target,id);
+}
 export const createItemInCard = function({id,title, price,image}){
     const div = document.createElement("div");
     div.classList.add('item-in-card');
     div.innerHTML = `
         <div class="p-3 border rounded mb-3">
-            <div class="mb-3 appendImg">
+            <div class="mb-3 appendImg d-flex justify-content-between align-items-center">
                 <img class="card-item-img"  src="${image}">
+                <i class="bi bi-trash3 fs-3" onclick="deleteCard(event,${id})"></i>
             </div>     
             <p>${title}</p> 
             <div class="row justify-content-between align-items-center">
@@ -67,9 +80,6 @@ export const addToCart = function(e){
     let currentItemCard = e.target.closest('.item-card');
     let itemId = currentItemCard.getAttribute('item-id');  //string
     let itemDetail = items.find(item=>item.id == parseInt(itemId));
-
-
-
 
     let currentImage = currentItemCard.querySelector('.item-img');
                     let newImg = new Image();
