@@ -32,16 +32,15 @@ window.dec = function(event,price){
     costTotal();
 }
 window.deleteCard = function(event,id){
+    let firstCount = parseInt(cardCounter[0].innerText);
+    cardCounter.forEach(current=>current.innerText = firstCount-1);
+
     let currentCard = event.target.closest('.item-in-card');
     let cardCost = parseFloat(currentCard.querySelector('.card-cost').innerText);
     total.innerText = (parseFloat(total.innerText)-cardCost).toFixed(2);
     currentCard.remove();
+    
 
-
-    // let itemId = currentItemCard.getAttribute('item-id');  //string
-    // let itemDetail = items.find(item=>item.id == parseInt(itemId));
-
-    // console.log(event.target,id);
 }
 export const createItemInCard = function({id,title, price,image}){
     const div = document.createElement("div");
